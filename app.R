@@ -94,3 +94,4 @@ server <- function(input, output) {
   })
 }
 shinyApp(ui = ui, server = server)
+# To run the app ->  shiny::runApp("/Users/carbeluche/Desktop/TFG/...")
