@@ -176,27 +176,6 @@ figure_normality <- (plot_qq_sus | plot_density_sus) /
                     (plot_qq_time | plot_density_time) +
   plot_annotation(title = "Q-Q plots  |  Density histograms", theme = theme_large)
 print(figure_normality)
-lm_sus <- lm(SUS_Score ~ DisabilityType * Gender, data = data)
-lm_time <- lm(Task_Completion_Time ~ DisabilityType * Gender, data = data)
-lm_likert <- lm(Likert_Scale ~ DisabilityType * Gender, data = data)
-resid_plot <- function(model, title, color = "#2c3e50") {
-  df <- data.frame(Fitted = fitted(model), Residuals = resid(model))
-  ggplot(df, aes(x = Fitted, y = Residuals)) +
-    geom_point(color = color, alpha = 0.6) +
-    geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
-    labs(
-      title = title,
-      x = "Values predicted by the model",
-      y = "Residuals"
-    ) +
-    theme_large
-}
-figure_homoscedasticity <- 
-  resid_plot(lm_sus, "SUS Residuals vs Predicted", color = "#7a1fa2") /
-  resid_plot(lm_likert, "Likert Residuals vs Predicted", color = "#0d47a1") /
-  resid_plot(lm_time, "Time Residuals vs Predicted", color = "#ed588e") +
-  plot_annotation(title = "Homogeneity of Variance – Residuals vs Predicted", theme = theme_large)
-print(figure_homoscedasticity)
 # 2.2. ANOVA Results for SUS_Score
 install.packages("afex")
 library(afex)
